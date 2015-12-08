@@ -15,16 +15,19 @@ import java.io.InputStream;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
+    boolean firstDraw = true;
+    int cardNumber=7;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        boolean firstDraw = true;
+
         setContentView(R.layout.activity_main);
         LinearLayout yep = (LinearLayout) findViewById(R.id.okay);
         //ImageButton[] cards = new ImageButton[7];
         String names ="card";
-        final int cardNumber=7;
+
         String Convert;
 
         for(int i=0; i<7; i++){
@@ -42,11 +45,10 @@ public class MainActivity extends AppCompatActivity {
                     for(int i=0; i<7; i++){
                         showCard(i);
                     }
-
+                    firstDraw=false;
                 }
                 else{
                     cardNumber++;
-
                 }
             }
         });
