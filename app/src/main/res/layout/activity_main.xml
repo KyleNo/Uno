@@ -1,0 +1,84 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity"
+    android:clickable="true">
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/DrawButton"
+        android:layout_gravity="top"
+        android:src="@drawable/drawbutton"
+        android:layout_centerHorizontal="true"/>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom|center_horizontal"
+        android:longClickable="false"
+        android:clickable="false"
+        android:id="@+id/okay"
+        android:layout_alignTop="@+id/DrawButton"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true">
+
+        <!--
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/Button1"
+            android:layout_gravity="bottom"
+            android:longClickable="true"
+            android:clickable="true"
+            android:visibility="gone" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/Button2"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="bottom"
+            android:clickable="true"
+            android:longClickable="true"
+            android:visibility="gone" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/Button3"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="bottom"
+            android:longClickable="true"
+            android:clickable="true"
+            android:visibility="gone" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/Button4"
+            android:visibility="gone" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/Button5"
+            android:visibility="gone" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/Button6"
+            android:visibility="gone" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/Button7"
+            android:visibility="gone" />
+        -->
+    </LinearLayout>
+
+</RelativeLayout>
