@@ -17,6 +17,7 @@ import android.content.res.Resources;
 import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.net.Uri;
@@ -58,12 +59,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
+        RelativeLayout welp = (RelativeLayout) findViewById(R.id.welp);
         LinearLayout yep = (LinearLayout) findViewById(R.id.okay);//layout that arranges items at bottom of screen centered middle
+        yep.setBackgroundColor(Color.parseColor("F5F5DC"));
         //ImageButton[] cards = new ImageButton[7];
 
 
         for(int i=0; i<7; i++){//draws 7 new cards
-            ImageButton cards = new ImageButton(this.getApplicationContext());
+            ImageButton cards = new ImageButton(this.getApplicationContext(), null, android.R.attr.borderlessButtonStyle);
             cards.setId(i);
             yep.addView(cards);
             hideCard(i);
@@ -84,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else{
                     cardNumber++;
+                    cardsOnScreen++;
                     createCard();
                     for(int i=0; i<cardNumber; i++){
                         //resize image buttons???
@@ -100,10 +104,11 @@ public class MainActivity extends AppCompatActivity {
         LinearLayout yep = (LinearLayout) findViewById(R.id.okay);
         ImageButton card = (ImageButton) findViewById(i);
         //?????no idea how to do this
+        //card.setScaleX((cardNumber-1)/cardNumber);//this crashes the app
     }
 
     protected void createCard(){
-        ImageButton card = new ImageButton (this.getApplicationContext());//creates new image button
+        ImageButton card = new ImageButton (this.getApplicationContext(), null, android.R.attr.borderlessButtonStyle);//creates new image button
         LinearLayout yep = (LinearLayout) findViewById(R.id.okay);//declare view
         card.setId(cardNumber + 0);//says it can just be the variable but doesn't compile, so just keep it.
         //sets id as an integer based on which card it is.
@@ -132,8 +137,9 @@ public class MainActivity extends AppCompatActivity {
                 R.drawable.blue1,R.drawable.blue2,R.drawable.blue3,R.drawable.blue4,
                 R.drawable.green1,R.drawable.green2,R.drawable.green3,R.drawable.green4};
         cardValues[i]=rng.nextInt(16);
-        int temp=cardValues[i];
+        int temp=cardValues[i];//kept having issues with the function;
         card.setImageResource(names[temp]);
+
     }
 
     protected void showCard(int i){
