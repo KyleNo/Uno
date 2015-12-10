@@ -56,11 +56,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
-        LinearLayout yep = (LinearLayout) findViewById(R.id.okay);
+        LinearLayout yep = (LinearLayout) findViewById(R.id.okay);//layout that arranges items at bottom of screen centered middle
         //ImageButton[] cards = new ImageButton[7];
-        String Convert;
 
-        for(int i=0; i<7; i++){
+
+        for(int i=0; i<7; i++){//draws 7 new cards
             ImageButton cards = new ImageButton(this.getApplicationContext());
             cards.setId(i);
             yep.addView(cards);
@@ -96,17 +96,19 @@ public class MainActivity extends AppCompatActivity {
     protected void resizeCards(int i){
         LinearLayout yep = (LinearLayout) findViewById(R.id.okay);
         ImageButton card = (ImageButton) findViewById(i);
-        //?????
+        //?????no idea how to do this
     }
 
     protected void createCard(){
-        ImageButton card = new ImageButton (this.getApplicationContext());
-        card.setId(cardNumber + 0);
-        LinearLayout yep = (LinearLayout) findViewById(R.id.okay);
+        ImageButton card = new ImageButton (this.getApplicationContext());//creates new image button
+        LinearLayout yep = (LinearLayout) findViewById(R.id.okay);//declare view
+        card.setId(cardNumber + 0);//says it can just be the variable but doesn't compile, so just keep it.
+        //sets id as an integer based on which card it is.
+
         yep.addView(card);
-        hideCard(cardNumber);
-        pickCard(cardNumber);
-        showCard(cardNumber);
+        hideCard(cardNumber);//sets basic layout for cards
+        pickCard(cardNumber);//assigns card to image button
+        showCard(cardNumber);//makes card visible. Wanted to do something, but didn't work.
     }
 
 
