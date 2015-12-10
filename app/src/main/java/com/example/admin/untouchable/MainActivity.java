@@ -48,7 +48,8 @@ public class MainActivity extends AppCompatActivity {
     boolean firstDraw = true;
     int cardNumber=7;
     int cardsOnScreen=7;
-    int[] cardValues={0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+    int[] cardValues = new int[100];
+
 
 
     //Context context = this.getApplicationContext();
