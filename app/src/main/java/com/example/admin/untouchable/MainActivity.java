@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
     boolean firstDraw = true;
     int cardNumber=7;
     int cardsOnScreen=7;
-    int[] cardValues;
+    int[] cardValues={0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 
 
     //Context context = this.getApplicationContext();
@@ -130,9 +130,9 @@ public class MainActivity extends AppCompatActivity {
                 R.drawable.yellow1,R.drawable.yellow2,R.drawable.yellow3,R.drawable.yellow4,
                 R.drawable.blue1,R.drawable.blue2,R.drawable.blue3,R.drawable.blue4,
                 R.drawable.green1,R.drawable.green2,R.drawable.green3,R.drawable.green4};
-        //cardValues[i]=rng.nextInt(16);
-        //int temp=cardValues[i];
-        card.setImageResource(names[rng.nextInt(16)]);
+        cardValues[i]=rng.nextInt(16);
+        int temp=cardValues[i];
+        card.setImageResource(names[temp]);
     }
 
     protected void showCard(int i){
