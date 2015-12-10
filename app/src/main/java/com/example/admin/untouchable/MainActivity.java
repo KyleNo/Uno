@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
     int cardsOnScreen=7;
     int[] cardValues;
 
+
     //Context context = this.getApplicationContext();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
             pickCard(i);
         }
         ImageButton drawCard = (ImageButton) findViewById(R.id.DrawButton);
+
         drawCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -128,9 +130,9 @@ public class MainActivity extends AppCompatActivity {
                 R.drawable.yellow1,R.drawable.yellow2,R.drawable.yellow3,R.drawable.yellow4,
                 R.drawable.blue1,R.drawable.blue2,R.drawable.blue3,R.drawable.blue4,
                 R.drawable.green1,R.drawable.green2,R.drawable.green3,R.drawable.green4};
-        cardValues[i]=rng.nextInt(16);
-        int temp=cardValues[i];
-        card.setImageResource(names[temp]);
+        //cardValues[i]=rng.nextInt(16);
+        //int temp=cardValues[i];
+        card.setImageResource(names[rng.nextInt(16)]);
     }
 
     protected void showCard(int i){
