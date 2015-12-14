@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         RelativeLayout welp = (RelativeLayout) findViewById(R.id.welp);
         LinearLayout yep = (LinearLayout) findViewById(R.id.okay);//layout that arranges items at bottom of screen centered middle
-        welp.setBackgroundColor(Color.parseColor("#ffcccc"));
+        welp.setBackgroundColor(Color.parseColor("#f2e6d9"));
         //ImageButton[] cards = new ImageButton[7];
 
 
