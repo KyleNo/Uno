@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         RelativeLayout welp = (RelativeLayout) findViewById(R.id.welp);
         LinearLayout yep = (LinearLayout) findViewById(R.id.okay);//layout that arranges items at bottom of screen centered middle
-        yep.setBackgroundColor(Color.parseColor("F5F5DC"));
+        welp.setBackgroundColor(Color.parseColor("#ffcccc"));
         //ImageButton[] cards = new ImageButton[7];
 
 
@@ -89,23 +89,12 @@ public class MainActivity extends AppCompatActivity {
                     cardNumber++;
                     cardsOnScreen++;
                     createCard();
-                    for(int i=0; i<cardNumber; i++){
-                        //resize image buttons???
-                        Log.v("what","?");
-                        resizeCards(i);
-                    }
 
                 }
             }
         });
     }
 
-    protected void resizeCards(int i){
-        LinearLayout yep = (LinearLayout) findViewById(R.id.okay);
-        ImageButton card = (ImageButton) findViewById(i);
-        //?????no idea how to do this
-        //card.setScaleX((cardNumber-1)/cardNumber);//this crashes the app
-    }
 
     protected void createCard(){
         ImageButton card = new ImageButton (this.getApplicationContext(), null, android.R.attr.borderlessButtonStyle);//creates new image button

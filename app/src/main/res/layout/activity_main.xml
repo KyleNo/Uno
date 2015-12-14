@@ -13,17 +13,24 @@
         android:layout_gravity="top"
         android:src="@drawable/drawbutton"
         android:layout_centerHorizontal="true"/>
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="bottom|center_horizontal"
-        android:longClickable="false"
-        android:clickable="false"
-        android:id="@+id/okay"
-        android:layout_alignTop="@+id/DrawButton"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true">
+    <HorizontalScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/scroll"
+        android:foregroundGravity="bottom"
+        android:scrollbars="none"
+        android:layout_alignParentBottom="true">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="bottom|center_horizontal"
+            android:longClickable="false"
+            android:clickable="false"
+            android:id="@+id/okay"
+            android:layout_alignTop="@+id/DrawButton"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true">
 
         <!--
         <ImageButton
@@ -80,6 +87,6 @@
             android:id="@+id/Button7"
             android:visibility="gone" />
         -->
-    </LinearLayout>
-
+        </LinearLayout>
+    </HorizontalScrollView>
 </RelativeLayout>
