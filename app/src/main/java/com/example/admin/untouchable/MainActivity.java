@@ -52,7 +52,6 @@ public class MainActivity extends AppCompatActivity {
     int[] cardValues = new int[100];
 
 
-
     //Context context = this.getApplicationContext();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +61,6 @@ public class MainActivity extends AppCompatActivity {
         RelativeLayout welp = (RelativeLayout) findViewById(R.id.welp);
         LinearLayout yep = (LinearLayout) findViewById(R.id.okay);//layout that arranges items at bottom of screen centered middle
         welp.setBackgroundColor(Color.parseColor("#f2e6d9"));
-        //ImageButton[] cards = new ImageButton[7];
 
 
         for(int i=0; i<7; i++){//draws 7 new cards
@@ -132,8 +130,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     protected void showCard(int i){
-        ImageButton cards = (ImageButton) findViewById(i);
+        final ImageButton cards = (ImageButton) findViewById(i);
         cards.setVisibility(View.VISIBLE);
+        cards.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int id = cards.getId();
+                attemptPlay(id);
+            }
+        });
+    }
+    void attemptPlay(int id){
+        ImageButton cards = (ImageButton) findViewById(id);
+        
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
