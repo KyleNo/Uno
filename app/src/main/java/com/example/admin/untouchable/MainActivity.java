@@ -142,7 +142,7 @@ public class MainActivity extends AppCompatActivity {
     }
     void attemptPlay(int id){
         ImageButton cards = (ImageButton) findViewById(id);
-        
+
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
