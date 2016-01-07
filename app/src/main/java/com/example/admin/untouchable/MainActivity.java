@@ -45,12 +45,15 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Random;
 
+
+
 public class MainActivity extends AppCompatActivity {
     boolean firstDraw = true;
     int cardNumber=7;
     int cardsOnScreen=7;
     int[] cardValues = new int[100];
-
+    int[] number = new int[100];
+    int[] color = new int[100];
 
     //Context context = this.getApplicationContext();
     @Override
@@ -124,7 +127,10 @@ public class MainActivity extends AppCompatActivity {
                 R.drawable.blue1,R.drawable.blue2,R.drawable.blue3,R.drawable.blue4,
                 R.drawable.green1,R.drawable.green2,R.drawable.green3,R.drawable.green4};
         cardValues[i]=rng.nextInt(16);
-        int temp=cardValues[i];//kept having issues with the function;
+        int temp=cardValues[i];//kept having issues with the function; make it better if you really want.
+        if(temp==R.drawable.red1){
+
+        }
         card.setImageResource(names[temp]);
 
     }
