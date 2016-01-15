@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (firstDraw) {
 
-                    for (int i = 0; i < 7; i++) {
+                    for (int i = 1; i < 8; i++) {
                         showCard(i);
                     }
                     firstDraw = false;
@@ -167,20 +167,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void showCard(int i){
-        ImageButton cards;
-        cards = (ImageButton) findViewById(i);
+        final ImageButton cards = (ImageButton) findViewById(i);
         cards.setVisibility(View.VISIBLE);
-        /*
+
         cards.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int id = cards.getId();
-                //attemptPlay(id);
+                attemptPlay(id);
                 Log.v("id",Integer.toString(id));
             }
         });
-        */
+
     }
+
 
     void replaceMiddle(int id){
         ImageButton middle = (ImageButton) findViewById(id);
@@ -195,7 +195,9 @@ public class MainActivity extends AppCompatActivity {
 
     void attemptPlay(int id){
         ImageButton cards = (ImageButton) findViewById(id);
-        //if()
+        if(middleColor==color[id] || middleNumber==number[id]){
+
+        }
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
