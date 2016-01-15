@@ -29,6 +29,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Display;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -49,12 +50,15 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
     boolean firstDraw = true;
-    int cardNumber=7;
-    int cardsOnScreen=7;
+    int cardNumber=8;
+    int cardsOnScreen=8;
     int[] cardValues = new int[100];
     int[] number = new int[100];
     int[] color = new int[100];
+    int middleColor=10;
+    int middleNumber=10;
 
+    String test;
     //Context context = this.getApplicationContext();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,8 +69,9 @@ public class MainActivity extends AppCompatActivity {
         LinearLayout yep = (LinearLayout) findViewById(R.id.okay);//layout that arranges items at bottom of screen centered middle
         welp.setBackgroundColor(Color.parseColor("#f2e6d9"));
 
-
-        for(int i=0; i<7; i++){//draws 7 new cards
+        ImageButton firstCard = new ImageButton(this.getApplicationContext(),null, android.R.attr.borderlessButtonStyle);
+        firstCard.setId(0);
+        for(int i=1; i<8; i++){//draws 7 new cards
             ImageButton cards = new ImageButton(this.getApplicationContext(), null, android.R.attr.borderlessButtonStyle);
             cards.setId(i);
             yep.addView(cards);
@@ -78,15 +83,14 @@ public class MainActivity extends AppCompatActivity {
         drawCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(firstDraw){
+                if (firstDraw) {
 
-                    for(int i=0; i<7; i++){
+                    for (int i = 0; i < 7; i++) {
                         showCard(i);
                     }
-                    firstDraw=false;
+                    firstDraw = false;
 
-                }
-                else{
+                } else {
                     cardNumber++;
                     cardsOnScreen++;
                     createCard();
@@ -115,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
         cards.setImageResource(R.drawable.red1);
         cards.setClickable(true);
         cards.setLongClickable(true);
-        cards.setVisibility(View.GONE);
+        cards.setVisibility(View.INVISIBLE);
     }
 
     protected void pickCard(int i){
@@ -127,28 +131,71 @@ public class MainActivity extends AppCompatActivity {
                 R.drawable.blue1,R.drawable.blue2,R.drawable.blue3,R.drawable.blue4,
                 R.drawable.green1,R.drawable.green2,R.drawable.green3,R.drawable.green4};
         cardValues[i]=rng.nextInt(16);
-        int temp=cardValues[i];//kept having issues with the function; make it better if you really want.
-        if(temp==R.drawable.red1){
+        int temp=cardValues[i];
+        //kept having issues with the function; make it better if you really want.
 
+        //a loop that determines the number value of each card that is generated and stores them as an int in an array at spot [image button's id].
+        for(int j =0; j<4; j++){
+        //j is the number value of the card.
+            for(int k=0; k<4; k++){
+            //k goes through each type of card to check for number.
+                if(temp==j+4*k){
+                //if the randomly selected value matches the value of name[(card number)+4*(the space between each of the same value)]
+                    number[i]=j;
+
+
+                }
+            }
         }
+
+        //a similar loop as above except with color.
+        for(int j=0; j<4; j++){
+        //j is an int that arbitrarily represents a color. 0=red,1=yellow,2=blue,3=green
+            for(int k=0; k<4; k++){
+                if(temp==j*4+k){
+                    color[i]=j;
+                }
+            }
+        }
+        test=Integer.toString(number[i]+1);
+        Log.v("Number", test);
+        test=Integer.toString(color[i]);
+        Log.e("Color", test);
+
         card.setImageResource(names[temp]);
 
     }
 
-    protected void showCard(int i){
-        final ImageButton cards = (ImageButton) findViewById(i);
+    void showCard(int i){
+        ImageButton cards;
+        cards = (ImageButton) findViewById(i);
         cards.setVisibility(View.VISIBLE);
+        /*
         cards.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int id = cards.getId();
-                attemptPlay(id);
+                //attemptPlay(id);
+                Log.v("id",Integer.toString(id));
             }
         });
+        */
     }
+
+    void replaceMiddle(int id){
+        ImageButton middle = (ImageButton) findViewById(id);
+        RelativeLayout layout =(RelativeLayout) findViewById(R.id.welp);
+        layout.addView(middle);
+        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) middle.getLayoutParams();
+        layoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
+        layoutParams.addRule(RelativeLayout.CENTER_VERTICAL);
+
+    }
+
+
     void attemptPlay(int id){
         ImageButton cards = (ImageButton) findViewById(id);
-
+        //if()
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
