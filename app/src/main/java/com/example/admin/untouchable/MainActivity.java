@@ -33,10 +33,13 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -70,7 +73,13 @@ public class MainActivity extends AppCompatActivity {
         welp.setBackgroundColor(Color.parseColor("#f2e6d9"));
 
         ImageButton firstCard = new ImageButton(this.getApplicationContext(),null, android.R.attr.borderlessButtonStyle);
+        welp.addView(firstCard);
         firstCard.setId(0);
+        hideCard(0);
+        pickCard(0);
+        showCard(0);
+
+        replaceMiddle(0);
         for(int i=1; i<8; i++){//draws 7 new cards
             ImageButton cards = new ImageButton(this.getApplicationContext(), null, android.R.attr.borderlessButtonStyle);
             cards.setId(i);
@@ -141,6 +150,9 @@ public class MainActivity extends AppCompatActivity {
             //k goes through each type of card to check for number.
                 if(temp==j+4*k){
                 //if the randomly selected value matches the value of name[(card number)+4*(the space between each of the same value)]
+                    if(i==0){
+                        middleNumber=j;
+                    }
                     number[i]=j;
 
 
@@ -153,14 +165,15 @@ public class MainActivity extends AppCompatActivity {
         //j is an int that arbitrarily represents a color. 0=red,1=yellow,2=blue,3=green
             for(int k=0; k<4; k++){
                 if(temp==j*4+k){
+                    if(i==0){
+                        middleColor=j;
+                    }
                     color[i]=j;
                 }
             }
         }
         test=Integer.toString(number[i]+1);
-        Log.v("Number", test);
         test=Integer.toString(color[i]);
-        Log.e("Color", test);
 
         card.setImageResource(names[temp]);
 
@@ -175,7 +188,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 int id = cards.getId();
                 attemptPlay(id);
-                Log.v("id",Integer.toString(id));
             }
         });
 
@@ -185,20 +197,32 @@ public class MainActivity extends AppCompatActivity {
     void replaceMiddle(int id){
         ImageButton middle = (ImageButton) findViewById(id);
         RelativeLayout layout =(RelativeLayout) findViewById(R.id.welp);
-        layout.addView(middle);
-        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) middle.getLayoutParams();
-        layoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
-        layoutParams.addRule(RelativeLayout.CENTER_VERTICAL);
+        HorizontalScrollView scroll =(HorizontalScrollView) findViewById(R.id.scroll);
+        if(id>0) {
+            ((ViewGroup)middle.getParent()).removeView(middle);
+            layout.addView(middle);
+        }
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,RelativeLayout.LayoutParams.WRAP_CONTENT);
+        params.addRule(RelativeLayout.CENTER_IN_PARENT);
+        middle.setLayoutParams(params);
+        middleColor=color[id];
+        middleNumber=number[id];
 
     }
 
 
     void attemptPlay(int id){
         ImageButton cards = (ImageButton) findViewById(id);
+        Log.e("MidNum",Integer.toString(middleNumber));
+        Log.e("Num",Integer.toString(number[id]));
         if(middleColor==color[id] || middleNumber==number[id]){
-
+            Log.v("id", Integer.toString(id));
+            replaceMiddle(id);
         }
     }
+
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
