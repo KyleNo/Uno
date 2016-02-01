@@ -138,37 +138,40 @@ public class MainActivity extends AppCompatActivity {
                 R.drawable.red1,R.drawable.red2,R.drawable.red3,R.drawable.red4,
                 R.drawable.yellow1,R.drawable.yellow2,R.drawable.yellow3,R.drawable.yellow4,
                 R.drawable.blue1,R.drawable.blue2,R.drawable.blue3,R.drawable.blue4,
-                R.drawable.green1,R.drawable.green2,R.drawable.green3,R.drawable.green4};
-        cardValues[i]=rng.nextInt(16);
+                R.drawable.green1,R.drawable.green2,R.drawable.green3,R.drawable.green4,
+                R.drawable.wild};
+        cardValues[i]=rng.nextInt(17);
         int temp=cardValues[i];
         //kept having issues with the function; make it better if you really want.
 
         //a loop that determines the number value of each card that is generated and stores them as an int in an array at spot [image button's id].
-        for(int j =0; j<4; j++){
-        //j is the number value of the card.
-            for(int k=0; k<4; k++){
-            //k goes through each type of card to check for number.
-                if(temp==j+4*k){
-                //if the randomly selected value matches the value of name[(card number)+4*(the space between each of the same value)]
-                    if(i==0){
-                        middleNumber=j;
+        if(cardValues[i]!=R.drawable.wild) {
+            for (int j = 0; j < 4; j++) {
+                //j is the number value of the card.
+                for (int k = 0; k < 4; k++) {
+                    //k goes through each type of card to check for number.
+                    if (temp == j + 4 * k) {
+                        //if the randomly selected value matches the value of name[(card number)+4*(the space between each of the same value)]
+                        if (i == 0) {
+                            middleNumber = j;
+                        }
+                        number[i] = j;
+
+
                     }
-                    number[i]=j;
-
-
                 }
             }
-        }
 
-        //a similar loop as above except with color.
-        for(int j=0; j<4; j++){
-        //j is an int that arbitrarily represents a color. 0=red,1=yellow,2=blue,3=green
-            for(int k=0; k<4; k++){
-                if(temp==j*4+k){
-                    if(i==0){
-                        middleColor=j;
+            //a similar loop as above except with color.
+            for (int j = 0; j < 4; j++) {
+                //j is an int that arbitrarily represents a color. 0=red,1=yellow,2=blue,3=green
+                for (int k = 0; k < 4; k++) {
+                    if (temp == j * 4 + k) {
+                        if (i == 0) {
+                            middleColor = j;
+                        }
+                        color[i] = j;
                     }
-                    color[i]=j;
                 }
             }
         }
@@ -196,6 +199,7 @@ public class MainActivity extends AppCompatActivity {
 
     void replaceMiddle(int id){
         ImageButton middle = (ImageButton) findViewById(id);
+        ImageView win = (ImageView) findViewById(R.id.win);
         RelativeLayout layout =(RelativeLayout) findViewById(R.id.welp);
         HorizontalScrollView scroll =(HorizontalScrollView) findViewById(R.id.scroll);
         if(id>0) {
@@ -208,11 +212,14 @@ public class MainActivity extends AppCompatActivity {
         middle.setLayoutParams(params);
         middleColor=color[id];
         middleNumber=number[id];
-        cardsInHand--;
+
         middle.setEnabled(false);
         if(cardsInHand==0){
-
+            //win condition
+            win.bringToFront();
+            win.setVisibility(View.VISIBLE);
         }
+        cardsInHand--;
     }
 
 
@@ -221,7 +228,10 @@ public class MainActivity extends AppCompatActivity {
         ImageButton cards = (ImageButton) findViewById(id);
         //Log.e("MidNum",Integer.toString(middleNumber));
         Log.v("Congrats", Integer.toString(cardsInHand));
-        if(middleColor==color[id] || middleNumber==number[id]){
+        if(middleColor==color[id] || middleNumber==number[id] || cardValues[id]==R.drawable.wild){
+            if(cardValues[id]==R.drawable.wild){
+
+            }
 
             replaceMiddle(id);
         }
