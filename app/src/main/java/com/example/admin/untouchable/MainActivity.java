@@ -54,7 +54,7 @@ import java.util.Random;
 public class MainActivity extends AppCompatActivity {
     boolean firstDraw = true;
     int cardNumber=8;
-    int cardsOnScreen=8;
+    int cardsInHand=7;
     int[] cardValues = new int[100];
     int[] number = new int[100];
     int[] color = new int[100];
@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
 
                 } else {
                     cardNumber++;
-                    cardsOnScreen++;
+                    cardsInHand++;
                     createCard();
 
                 }
@@ -202,26 +202,35 @@ public class MainActivity extends AppCompatActivity {
             ((ViewGroup)middle.getParent()).removeView(middle);
             layout.addView(middle);
         }
-        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,RelativeLayout.LayoutParams.WRAP_CONTENT);
-        params.addRule(RelativeLayout.CENTER_IN_PARENT);
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,dpToPixels(getApplicationContext(),90));
+        params.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+        params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
         middle.setLayoutParams(params);
         middleColor=color[id];
         middleNumber=number[id];
+        cardsInHand--;
+        middle.setEnabled(false);
+        if(cardsInHand==0){
 
-    }
-
-
-    void attemptPlay(int id){
-        ImageButton cards = (ImageButton) findViewById(id);
-        Log.e("MidNum",Integer.toString(middleNumber));
-        Log.e("Num",Integer.toString(number[id]));
-        if(middleColor==color[id] || middleNumber==number[id]){
-            Log.v("id", Integer.toString(id));
-            replaceMiddle(id);
         }
     }
 
 
+    void attemptPlay(int id){
+        //Log.v("id", Integer.toString(id));
+        ImageButton cards = (ImageButton) findViewById(id);
+        //Log.e("MidNum",Integer.toString(middleNumber));
+        Log.v("Congrats", Integer.toString(cardsInHand));
+        if(middleColor==color[id] || middleNumber==number[id]){
+
+            replaceMiddle(id);
+        }
+    }
+
+    public static int dpToPixels(Context context, float dp) {
+        final float scale = context.getResources().getDisplayMetrics().density;
+        return (int) (dp * scale + 0.5f);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
