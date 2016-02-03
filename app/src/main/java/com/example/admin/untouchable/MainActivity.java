@@ -40,6 +40,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
+import android.widget.TextView;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -55,11 +56,15 @@ public class MainActivity extends AppCompatActivity {
     boolean firstDraw = true;
     int cardNumber=8;
     int cardsInHand=7;
-    int[] cardValues = new int[100];
-    int[] number = new int[100];
-    int[] color = new int[100];
+    int[][] cardValues = new int[4][100];
+    int[][] number = new int[4][100];
+    int[][] color = new int[4][100];
     int middleColor=10;
     int middleNumber=10;
+    int wildColor=-1;
+    int activePlayer=0;
+    int numberofplayers=0;
+
 
     String test;
     //Context context = this.getApplicationContext();
@@ -71,7 +76,17 @@ public class MainActivity extends AppCompatActivity {
         RelativeLayout welp = (RelativeLayout) findViewById(R.id.welp);
         LinearLayout yep = (LinearLayout) findViewById(R.id.okay);//layout that arranges items at bottom of screen centered middle
         welp.setBackgroundColor(Color.parseColor("#f2e6d9"));
+        ImageButton drawCard = (ImageButton) findViewById(R.id.DrawButton);
+        drawCard.setVisibility(View.GONE);
 
+        setUp(1);
+
+
+    }
+
+    void setUp(int players){
+        RelativeLayout welp = (RelativeLayout) findViewById(R.id.welp);
+        LinearLayout yep = (LinearLayout) findViewById(R.id.okay);//layout that arranges items at bottom of screen centered middle
         ImageButton firstCard = new ImageButton(this.getApplicationContext(),null, android.R.attr.borderlessButtonStyle);
         welp.addView(firstCard);
         firstCard.setId(0);
@@ -87,8 +102,9 @@ public class MainActivity extends AppCompatActivity {
             hideCard(i);
             pickCard(i);
         }
-        ImageButton drawCard = (ImageButton) findViewById(R.id.DrawButton);
 
+        ImageButton drawCard = (ImageButton) findViewById(R.id.DrawButton);
+        drawCard.setVisibility(View.VISIBLE);
         drawCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -108,7 +124,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
 
     protected void createCard(){
         ImageButton card = new ImageButton (this.getApplicationContext(), null, android.R.attr.borderlessButtonStyle);//creates new image button
@@ -140,12 +155,12 @@ public class MainActivity extends AppCompatActivity {
                 R.drawable.blue1,R.drawable.blue2,R.drawable.blue3,R.drawable.blue4,
                 R.drawable.green1,R.drawable.green2,R.drawable.green3,R.drawable.green4,
                 R.drawable.wild};
-        cardValues[i]=rng.nextInt(17);
-        int temp=cardValues[i];
+        cardValues[activePlayer][i]=rng.nextInt(17);
+        int temp=cardValues[activePlayer][i];
         //kept having issues with the function; make it better if you really want.
 
         //a loop that determines the number value of each card that is generated and stores them as an int in an array at spot [image button's id].
-        if(cardValues[i]!=R.drawable.wild) {
+        if(cardValues[activePlayer][i]!=R.drawable.wild) {
             for (int j = 0; j < 4; j++) {
                 //j is the number value of the card.
                 for (int k = 0; k < 4; k++) {
@@ -155,7 +170,7 @@ public class MainActivity extends AppCompatActivity {
                         if (i == 0) {
                             middleNumber = j;
                         }
-                        number[i] = j;
+                        number[activePlayer][i] = j;
 
 
                     }
@@ -170,13 +185,18 @@ public class MainActivity extends AppCompatActivity {
                         if (i == 0) {
                             middleColor = j;
                         }
-                        color[i] = j;
+                        color[activePlayer][i] = j;
                     }
                 }
             }
         }
-        test=Integer.toString(number[i]+1);
-        test=Integer.toString(color[i]);
+        else
+        {
+            middleColor=-1;
+            middleNumber=-1;
+        }
+        test=Integer.toString(number[activePlayer][i]+1);
+        test=Integer.toString(color[activePlayer][i]);
 
         card.setImageResource(names[temp]);
 
@@ -210,8 +230,8 @@ public class MainActivity extends AppCompatActivity {
         params.addRule(RelativeLayout.ALIGN_PARENT_TOP);
         params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
         middle.setLayoutParams(params);
-        middleColor=color[id];
-        middleNumber=number[id];
+        middleColor=color[activePlayer][id];
+        middleNumber=number[activePlayer][id];
 
         middle.setEnabled(false);
         if(cardsInHand==0){
@@ -227,21 +247,96 @@ public class MainActivity extends AppCompatActivity {
         //Log.v("id", Integer.toString(id));
         ImageButton cards = (ImageButton) findViewById(id);
         //Log.e("MidNum",Integer.toString(middleNumber));
-        Log.v("Congrats", Integer.toString(cardsInHand));
-        if(middleColor==color[id] || middleNumber==number[id] || cardValues[id]==R.drawable.wild){
-            if(cardValues[id]==R.drawable.wild){
+        Log.e("number", Integer.toString(number[activePlayer][id]));
+        Log.d("color",Integer.toString(color[activePlayer][id]));
+        if(middleColor==color[activePlayer][id] || middleNumber==number[activePlayer][id] || cardValues[activePlayer][id]==16){
+            replaceMiddle(id);
+            if(cardValues[activePlayer][id]==16){
                 wild(id);
+                setWild();
             }
 
-            replaceMiddle(id);
+
         }
     }
 
-    void wild(int id){
+    void wild(int id){//0=red,1=yellow,2=blue,3=green
         ImageButton red = (ImageButton) findViewById(R.id.redbutt);
         ImageButton green = (ImageButton) findViewById(R.id.greenbutt);
         ImageButton blue = (ImageButton) findViewById(R.id.bluebutt);
         ImageButton yellow = (ImageButton) findViewById(R.id.yellowbutt);
+
+        TextView text = (TextView) findViewById(R.id.wildhelp);
+
+        red.setVisibility(View.VISIBLE);
+        red.bringToFront();
+
+        green.setVisibility(View.VISIBLE);
+        green.bringToFront();
+
+        blue.setVisibility(View.VISIBLE);
+        blue.bringToFront();
+
+        yellow.setVisibility(View.VISIBLE);
+        yellow.bringToFront();
+
+        text.setVisibility(View.VISIBLE);
+
+        middleNumber=-1;
+    }
+
+    void setWild(){//0=red,1=yellow,2=blue,3=green
+        ImageButton red = (ImageButton) findViewById(R.id.redbutt);
+        ImageButton green = (ImageButton) findViewById(R.id.greenbutt);
+        ImageButton blue = (ImageButton) findViewById(R.id.bluebutt);
+        ImageButton yellow = (ImageButton) findViewById(R.id.yellowbutt);
+
+        red.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                makeEmGoAway();
+                wildColor = 0;
+                middleColor =0;
+
+            }
+        });
+        green.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                makeEmGoAway();
+                wildColor = 3;
+                middleColor=3;
+            }
+        });
+        blue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                makeEmGoAway();
+                wildColor = 2;
+                middleColor=2;
+            }
+        });
+        yellow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                makeEmGoAway();
+                wildColor = 1;
+                middleColor=1;
+            }
+        });
+    }
+    void makeEmGoAway(){
+        ImageButton red = (ImageButton) findViewById(R.id.redbutt);
+        ImageButton green = (ImageButton) findViewById(R.id.greenbutt);
+        ImageButton blue = (ImageButton) findViewById(R.id.bluebutt);
+        ImageButton yellow = (ImageButton) findViewById(R.id.yellowbutt);
+        TextView text = (TextView) findViewById(R.id.wildhelp);
+        text.setVisibility(View.GONE);
+        red.setVisibility(View.GONE);
+        green.setVisibility(View.GONE);
+        blue.setVisibility(View.GONE);
+        yellow.setVisibility(View.GONE);
+        Log.d("vanish","yes");
     }
 
     public static int dpToPixels(Context context, float dp) {

@@ -153,8 +153,17 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Choose a color"
         android:id="@+id/wildhelp"
-        android:layout_below="@+id/yellowbutt"
+        android:layout_below="@+id/DrawButton"
         android:layout_centerHorizontal="true"
         android:visibility="gone" />
+
+    <ToggleButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2 Player"
+        android:id="@+id/toggleButton"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>
