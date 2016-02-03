@@ -230,11 +230,18 @@ public class MainActivity extends AppCompatActivity {
         Log.v("Congrats", Integer.toString(cardsInHand));
         if(middleColor==color[id] || middleNumber==number[id] || cardValues[id]==R.drawable.wild){
             if(cardValues[id]==R.drawable.wild){
-
+                wild(id);
             }
 
             replaceMiddle(id);
         }
+    }
+
+    void wild(int id){
+        ImageButton red = (ImageButton) findViewById(R.id.redbutt);
+        ImageButton green = (ImageButton) findViewById(R.id.greenbutt);
+        ImageButton blue = (ImageButton) findViewById(R.id.bluebutt);
+        ImageButton yellow = (ImageButton) findViewById(R.id.yellowbutt);
     }
 
     public static int dpToPixels(Context context, float dp) {
