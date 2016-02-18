@@ -34,10 +34,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -78,10 +80,98 @@ public class MainActivity extends AppCompatActivity {
         welp.setBackgroundColor(Color.parseColor("#f2e6d9"));
         ImageButton drawCard = (ImageButton) findViewById(R.id.DrawButton);
         drawCard.setVisibility(View.GONE);
+        setRadioButtons();
 
-        setUp(1);
+
+        //setUp(1);
 
 
+    }
+
+    void setRadioButtons(){
+        int players =0;
+        RadioButton b1 = (RadioButton) findViewById(R.id.b1);
+        RadioButton b2 = (RadioButton) findViewById(R.id.b2);
+        RadioButton b3 = (RadioButton) findViewById(R.id.b3);
+        RadioButton b4 = (RadioButton) findViewById(R.id.b4);
+        Button start = (Button) findViewById(R.id.start);
+
+        b1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                RadioButton b1 = (RadioButton) findViewById(R.id.b1);
+                RadioButton b2 = (RadioButton) findViewById(R.id.b2);
+                RadioButton b3 = (RadioButton) findViewById(R.id.b3);
+                RadioButton b4 = (RadioButton) findViewById(R.id.b4);
+
+                b2.setChecked(false);
+                b3.setChecked(false);
+                b4.setChecked(false);
+                numberofplayers=1;
+            }
+        });
+        b2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                RadioButton b1 = (RadioButton) findViewById(R.id.b1);
+                RadioButton b2 = (RadioButton) findViewById(R.id.b2);
+                RadioButton b3 = (RadioButton) findViewById(R.id.b3);
+                RadioButton b4 = (RadioButton) findViewById(R.id.b4);
+
+                b1.setChecked(false);
+                b3.setChecked(false);
+                b4.setChecked(false);
+                numberofplayers=2;
+            }
+        });
+        b3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                RadioButton b1 = (RadioButton) findViewById(R.id.b1);
+                RadioButton b2 = (RadioButton) findViewById(R.id.b2);
+                RadioButton b3 = (RadioButton) findViewById(R.id.b3);
+                RadioButton b4 = (RadioButton) findViewById(R.id.b4);
+
+                b1.setChecked(false);
+                b2.setChecked(false);
+                b4.setChecked(false);
+                numberofplayers=3;
+            }
+        });
+        b4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                RadioButton b1 = (RadioButton) findViewById(R.id.b1);
+                RadioButton b2 = (RadioButton) findViewById(R.id.b2);
+                RadioButton b3 = (RadioButton) findViewById(R.id.b3);
+                RadioButton b4 = (RadioButton) findViewById(R.id.b4);
+
+                b1.setChecked(false);
+                b2.setChecked(false);
+                b3.setChecked(false);
+                numberofplayers=4;
+            }
+        });
+        start.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                RadioButton b1 = (RadioButton) findViewById(R.id.b1);
+                RadioButton b2 = (RadioButton) findViewById(R.id.b2);
+                RadioButton b3 = (RadioButton) findViewById(R.id.b3);
+                RadioButton b4 = (RadioButton) findViewById(R.id.b4);
+                Button start = (Button) findViewById(R.id.start);
+
+                b1.setVisibility(View.GONE);
+                b2.setVisibility(View.GONE);
+                b3.setVisibility(View.GONE);
+                b4.setVisibility(View.GONE);
+                start.setVisibility(View.GONE);
+
+
+                setUp(numberofplayers);
+            }
+        });
     }
 
     void setUp(int players){
